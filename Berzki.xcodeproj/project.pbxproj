@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		F9E936E22F88E29100C1CC18 /* Berzki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Berzki.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F93319512F8BCE4B0065F08A /* Berzki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Berzki.app; path = "/Users/berzki/Documents/Project/Berzki/build/Debug-iphoneos/Berzki.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				F9E936E42F88E29100C1CC18 /* Berzki */,
-				F9E936E32F88E29100C1CC18 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		F9E936E32F88E29100C1CC18 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F9E936E22F88E29100C1CC18 /* Berzki.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -67,7 +58,7 @@
 			packageProductDependencies = (
 			);
 			productName = Berzki;
-			productReference = F9E936E22F88E29100C1CC18 /* Berzki.app */;
+			productReference = F93319512F8BCE4B0065F08A /* Berzki.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -95,7 +86,7 @@
 			mainGroup = F9E936D92F88E29100C1CC18;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = F9E936E32F88E29100C1CC18 /* Products */;
+			productRefGroup = F9E936D92F88E29100C1CC18;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
