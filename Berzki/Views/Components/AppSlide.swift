@@ -10,81 +10,68 @@ import SwiftUI
 struct AppSlide: View {
     let title: String?
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
             // Main Illustration area
             ZStack(alignment: .topLeading) {
                 Color.bgCard
-                    .cornerRadius(20)
-                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.borderMain, lineWidth: 1))
+                    .cornerRadius(18)
+                    .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.borderMain, lineWidth: 1))
                 
-                VStack {
-                    HStack {
-                        Text(title ?? "Langkah 1 · Setup Kamera")
-                            .font(.caption)
-                            .fontWeight(.bold)
-                            .foregroundColor(.textCaption)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(Color.bgInput)
-                            .cornerRadius(8)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.borderMain, lineWidth: 1))
+                ZStack {
+                    Image("SetupCamera")
+                        .resizable()
+                        .cornerRadius(8)
+                    
+                    VStack {
+                        HStack {
+                            // HIG Caption 2: 11pt Semibold (illus-label)
+                            Text(title ?? "Langkah 1 · Setup Kamera")
+                                .font(.caption2)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.textBody)
+                                .padding(.horizontal, 9)
+                                .padding(.vertical, 3)
+                                .background(Color.bgInput)
+                                .cornerRadius(5)
+                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.borderMain, lineWidth: 1))
+                            Spacer()
+                        }
+                        .padding(12)
+                        
                         Spacer()
                     }
-                    .padding(16)
-                    
-                    Spacer()
-                    
-                    // Specific Illustration
-                    VStack(spacing: 4) {
-                        Image(systemName: "iphone")
-                            .font(.system(size: 50))
-                            .foregroundColor(.brand.opacity(0.5))
-                            .background(Color.brandBg)
-                            .cornerRadius(8)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.brandBorder, lineWidth: 1))
-                        
-                        Text("3 meter")
-                            .font(.caption2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.brand)
-                        
-                        Text("Posisikan ponsel setinggi pinggang")
-                            .font(.caption2)
-                            .foregroundColor(.textCaption)
-                            .padding(.top, 10)
-                    }
-                    
-                    Spacer()
                 }
-            }
-            .frame(maxHeight: .infinity)
+                .frame(maxHeight: .infinity)}
             
             // Info Card
-            HStack(alignment: .top, spacing: 12) {
+            HStack(alignment: .top, spacing: 11) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 11)
                         .fill(Color.brandBg)
-                        .frame(width: 40, height: 40)
-                        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.brandBorder, lineWidth: 1))
+                        .frame(width: 38, height: 38)
+                        .overlay(RoundedRectangle(cornerRadius: 11).stroke(Color.brandBorder, lineWidth: 1))
                     
                     Image(systemName: "info.circle")
                         .foregroundColor(.brand)
-                        .font(.system(size: 18, weight: .regular))
+                        .font(.system(size: 16, weight: .regular))
                 }
                 
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 3) {
+                    // HIG Footnote: 13pt Semibold (info-strong)
                     Text("Tripod disarankan")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
                         .foregroundColor(.textPrimary)
+                    // HIG Caption 1: 12pt Regular (info-sub)
                     Text("Pastikan ponsel stabil dan kamera menghadap area plank dari sisi samping")
                         .font(.caption)
-                        .foregroundColor(.textBody)
+                        .foregroundColor(.textCaption)
                         .fixedSize(horizontal: false, vertical: true)
+                        .lineSpacing(3)
                 }
                 Spacer()
             }
-            .padding()
+            .padding(14)
             .background(Color.bgCard)
             .cornerRadius(16)
             .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.borderMain, lineWidth: 1))

@@ -14,15 +14,15 @@ struct TabButton: View {
     
     var body: some View {
         Button(action: action) {
+            // HIG Caption 1: 12pt Semibold (segmented control)
             Text(title)
-                .font(.subheadline)
-                .fontWeight(.bold)
+                .font(.caption)
+                .fontWeight(.semibold)
                 .foregroundColor(isSelected ? .textPrimary : .textCaption)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(isSelected ? Color.bgPrimary : Color.clear)
-                .cornerRadius(10)
-                .shadow(color: isSelected ? Color.black.opacity(0.05) : Color.clear, radius: 2, x: 0, y: 1)
+                .padding(.vertical, 7)
+                .background(isSelected ? Color.bgPressed : Color.clear)
+                .cornerRadius(7)
         }
     }
 }

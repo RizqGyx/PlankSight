@@ -11,66 +11,76 @@ struct HistoryItemCard: View {
     let item: SessionHistory
     
     var body: some View {
-        HStack(alignment: .top, spacing: 16) {
+        HStack(alignment: .top, spacing: 12) {
             // Date Box
-            VStack(spacing: 2) {
+            VStack(spacing: 1) {
+                // HIG Headline: 17pt Semibold (date day number)
                 Text(item.dayString)
-                    .font(.title2)
-                    .fontWeight(.black)
+                    .font(.headline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.textPrimary)
+                // HIG Caption 2: 11pt Semibold uppercase
                 Text(item.monthString)
                     .font(.caption2)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
+                    .textCase(.uppercase)
                     .foregroundColor(.textCaption)
             }
-            .frame(width: 50, height: 50)
+            .frame(width: 44, height: 44)
             .background(Color.bgInput)
-            .cornerRadius(12)
+            .cornerRadius(10)
             
             // Content
             VStack(alignment: .leading, spacing: 8) {
+                // HIG Footnote: 13pt Semibold (session title)
                 Text(item.title)
-                    .font(.headline)
-                    .fontWeight(.bold)
+                    .font(.footnote)
+                    .fontWeight(.semibold)
                     .foregroundColor(.textPrimary)
                 
-                HStack(spacing: 6) {
+                HStack(spacing: 7) {
+                    // HIG Caption 1: 12pt Regular (meta duration)
                     Text(item.durationText)
                         .font(.caption)
                         .foregroundColor(.textCaption)
                     
-                    // Quality Badge
+                    // Quality Badge — HIG Caption 2: 11pt Semibold
                     Text("Quality \(item.qualityPercent)%")
-                        .font(.system(size: 11, weight: .bold))
+                        .font(.caption2)
+                        .fontWeight(.semibold)
                         .foregroundColor(item.qualityLevel.color)
-                        .padding(.horizontal, 6)
+                        .padding(.horizontal, 7)
                         .padding(.vertical, 2)
                         .background(item.qualityLevel.bgColor)
-                        .cornerRadius(6)
+                        .cornerRadius(5)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 6)
+                            RoundedRectangle(cornerRadius: 5)
                                 .stroke(item.qualityLevel.borderColor, lineWidth: 1)
                         )
                 }
                 
-                // Tags
+                // Tags — HIG Caption 2: 11pt Semibold
                 if !item.tags.isEmpty {
-                    VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 3) {
                         ForEach(item.tags) { tag in
                             HStack(spacing: 4) {
                                 if let icon = tag.icon, icon == "checkmark" {
                                     Image(systemName: "checkmark")
-                                        .font(.system(size: 10, weight: .bold))
-                                        .foregroundColor(.textPrimary)
+                                        .font(.caption2)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.textCaption)
                                 }
                                 Text(tag.text)
-                                    .font(.system(size: 11, weight: .semibold))
-                                    .foregroundColor(.textBody)
+                                    .font(.caption2)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.textCaption)
                             }
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 2)
+                            .background(Color.bgInput)
+                            .cornerRadius(5)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 6)
+                                RoundedRectangle(cornerRadius: 5)
                                     .stroke(Color.borderMain, lineWidth: 1)
                             )
                         }
@@ -82,11 +92,12 @@ struct HistoryItemCard: View {
             
             // Chevron
             Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.borderMain)
+                .font(.caption2)
+                .fontWeight(.semibold)
+                .foregroundColor(.textPrimary)
                 .padding(.top, 16)
         }
-        .padding(.vertical, 16)
+        .padding(.vertical, 12)
     }
 }
 

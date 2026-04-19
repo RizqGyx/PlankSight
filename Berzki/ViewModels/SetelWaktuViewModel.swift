@@ -10,6 +10,7 @@ import Combine
 
 class SetelWaktuViewModel: ObservableObject {
     @Published var selectedDuration: DurationType = .fixed(60)
+    @Published var customSeconds: Int = 0
     
     enum DurationType: Hashable {
         case freeTime
@@ -23,19 +24,37 @@ class SetelWaktuViewModel: ObservableObject {
         let title: String
         let subtitle: String
         let iconName: String
-        let badge: String?
     }
     
-    let options: [OptionData] = [
-        OptionData(type: .freeTime, title: "Free Time", subtitle: "Tanpa batas waktu, hentikan kapan saja", iconName: "infinity", badge: nil),
-        OptionData(type: .fixed(60), title: "60 Detik", subtitle: "Rekomendasi untuk pemula", iconName: "clock", badge: "Populer"),
-        OptionData(type: .fixed(30), title: "30 Detik", subtitle: "Latihan singkat & intensif", iconName: "clock", badge: nil),
-        OptionData(type: .fixed(90), title: "90 Detik", subtitle: "Level menengah", iconName: "clock", badge: nil),
-        OptionData(type: .fixed(120), title: "2 Menit", subtitle: "Untuk yang sudah terlatih", iconName: "clock", badge: nil),
-        OptionData(type: .custom, title: "Kustom", subtitle: "Atur sendiri durasinya", iconName: "plus", badge: nil)
-    ]
+    var options: [OptionData] {
+        return [
+            OptionData(type: .freeTime, title: "Free Time", subtitle: "Tanpa batas waktu, hentikan kapan saja", iconName: "infinity"),
+            OptionData(type: .fixed(60), title: "60 Detik", subtitle: "Rekomendasi untuk pemula", iconName: "clock"),
+            OptionData(type: .fixed(30), title: "30 Detik", subtitle: "Latihan singkat & intensif", iconName: "clock"),
+            OptionData(type: .fixed(90), title: "90 Detik", subtitle: "Level menengah", iconName: "clock"),
+            OptionData(type: .fixed(120), title: "2 Menit", subtitle: "Untuk yang sudah terlatih", iconName: "clock"),
+            OptionData(type: .custom, title: "Kustom", 
+                       subtitle: customSeconds > 0 ? "\(formatSeconds(customSeconds)) — custom" : "Atur sendiri durasinya", 
+                       iconName: "plus")
+        ]
+    }
+    
+    private func formatSeconds(_ t: Int) -> String {
+        let h = t / 3600
+        let m = (t % 3600) / 60
+        let s = t % 60
+        var parts: [String] = []
+        if h > 0 { parts.append("\(h) Jam") }
+        if m > 0 { parts.append("\(m) Menit") }
+        if s > 0 { parts.append("\(s) Detik") }
+        return parts.joined(separator: " ")
+    }
     
     func startSession() {
-        print("Mulai Sesi dengan durasi: \(selectedDuration)")
+        if selectedDuration == .custom {
+            print("Mulai Sesi (Kustom) dengan durasi: \(customSeconds) detik")
+        } else {
+            print("Mulai Sesi dengan durasi: \(selectedDuration)")
+        }
     }
 }

@@ -15,60 +15,66 @@ struct HistorySummaryBox: View {
     var body: some View {
         HStack(spacing: 0) {
             // Total Sesi
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
+                // HIG Headline: 17pt Semibold (stat-n)
                 Text("\(totalSessions)")
-                    .font(.system(size: 20, weight: .black))
+                    .font(.headline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.textPrimary)
+                // HIG Caption 2: 11pt Semibold uppercase (stat-l)
                 Text("TOTAL SESI")
                     .font(.caption2)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .foregroundColor(.textCaption)
-                    .kerning(1.2)
             }
             .frame(maxWidth: .infinity)
             
             Divider()
                 .frame(height: 30)
-                .background(Color.borderSubtle)
+                .background(Color.borderMain)
             
             // Avg Quality
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
+                // HIG Headline: 17pt Semibold (stat-n)
                 Text("\(avgQuality)%")
-                    .font(.system(size: 20, weight: .black))
+                    .font(.headline)
+                    .fontWeight(.semibold)
                     .foregroundColor(.formGood)
+                // HIG Caption 2: 11pt Semibold uppercase (stat-l)
                 Text("AVG QUALITY")
                     .font(.caption2)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .foregroundColor(.textCaption)
-                    .kerning(1.2)
             }
             .frame(maxWidth: .infinity)
             
             Divider()
                 .frame(height: 30)
-                .background(Color.borderSubtle)
+                .background(Color.borderMain)
             
             // Streak
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 HStack(spacing: 4) {
                     Text("🔥")
+                    // HIG Headline: 17pt Semibold (stat-n)
                     Text("\(streak)")
-                        .font(.system(size: 20, weight: .black))
+                        .font(.headline)
+                        .fontWeight(.semibold)
                         .foregroundColor(.brand)
                 }
+                // HIG Caption 2: 11pt Semibold uppercase (stat-l)
                 Text("STREAK")
                     .font(.caption2)
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .foregroundColor(.textCaption)
-                    .kerning(1.2)
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(.vertical, 16)
+        .padding(.vertical, 12)
         .background(Color.bgCard)
-        .cornerRadius(16)
+        .cornerRadius(12)
         .overlay(
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.borderMain, lineWidth: 1)
         )
     }

@@ -18,18 +18,21 @@ struct PrimaryButton: View {
             HStack(spacing: 8) {
                 if let iconName = iconName {
                     Image(systemName: iconName)
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.headline)
+                        .fontWeight(.semibold)
                 }
+                // HIG Headline: 17pt Semibold
                 Text(title)
-                    .font(isFullWidth ? .system(size: 18, weight: .bold) : .headline)
-                    .fontWeight(isFullWidth ? .bold : .semibold)
+                    .font(.headline)
+                    .fontWeight(.semibold)
             }
-            .foregroundColor(.white)
-            .padding(.horizontal, isFullWidth ? 16 : 30)
-            .padding(.vertical, isFullWidth ? 16 : 14)
+            // Dark mode: dark text on brand button (#1A1410)
+            .foregroundColor(.brandButtonText)
+            .padding(.horizontal, isFullWidth ? 16 : 22)
+            .padding(.vertical, isFullWidth ? 15 : 13)
             .frame(maxWidth: isFullWidth ? .infinity : nil)
             .background(Color.brand)
-            .cornerRadius(isFullWidth ? 16 : 12)
+            .cornerRadius(13)
         }
     }
 }

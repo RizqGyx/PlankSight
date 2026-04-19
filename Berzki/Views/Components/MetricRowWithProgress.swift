@@ -12,36 +12,40 @@ struct MetricRowWithProgress: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            HStack(alignment: .top, spacing: 12) {
+            HStack(alignment: .top, spacing: 10) {
                 // Icon
                 ZStack {
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 9)
                         .fill(metric.type.iconBg)
                         .frame(width: 32, height: 32)
                     
                     Image(systemName: metric.type.iconName)
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.title3)
+                        .fontWeight(.semibold)
                         .foregroundColor(metric.type.iconTint)
                 }
                 
                 // Titles
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 1) {
+                    // HIG Footnote: 13pt Semibold (m-name)
                     Text(metric.title)
-                        .font(.subheadline)
-                        .fontWeight(.bold)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
                         .foregroundColor(.textPrimary)
                     
+                    // HIG Caption 2: 11pt Regular (m-desc)
                     Text(metric.subtitle)
                         .font(.caption2)
                         .foregroundColor(.textCaption)
+                        .lineSpacing(2)
                 }
                 
                 Spacer()
                 
-                // Value
+                // Value — HIG Subhead: 15pt Semibold (m-val)
                 Text(metric.valueString)
-                    .font(.headline)
-                    .fontWeight(.black)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
                     .foregroundColor(metric.type == .incorrect ? .formBad : (metric.type == .perfect ? .formGood : .textPrimary))
             }
             
@@ -50,7 +54,7 @@ struct MetricRowWithProgress: View {
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
                         Capsule()
-                            .fill(Color.borderMain)
+                            .fill(Color.bgInput)
                             .frame(height: 4)
                         
                         Capsule()
@@ -59,7 +63,7 @@ struct MetricRowWithProgress: View {
                     }
                 }
                 .frame(height: 4)
-                .padding(.top, 4)
+                .padding(.top, 6)
             }
         }
         .padding(.vertical, 8)

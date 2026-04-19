@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HistoryView: View {
     @StateObject private var viewModel = HistoryViewModel()
+    @EnvironmentObject var appRouter: AppRouter
     
     var body: some View {
         ZStack {
@@ -16,13 +17,17 @@ struct HistoryView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 // MARK: - Navigation Header
-                Button(action: { print("Kembali") }) {
+                Button(action: {
+                    appRouter.pop()
+                }) {
                     HStack(spacing: 4) {
                         Image(systemName: "chevron.left")
-                            .font(.system(size: 16, weight: .bold))
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                        // HIG Callout: 16pt Semibold
                         Text("Kembali")
                             .font(.headline)
-                            .fontWeight(.bold)
+                            .fontWeight(.semibold)
                     }
                     .foregroundColor(.brand)
                 }
@@ -31,13 +36,16 @@ struct HistoryView: View {
                 
                 // MARK: - Title
                 VStack(alignment: .leading, spacing: 24) {
-                    VStack {
+                    VStack(alignment: .leading) {
+                        // HIG Title 1: 28pt Bold
                         Text("Riwayat Sesi")
-                            .font(.system(size: 34, weight: .heavy))
+                            .font(.title)
+                            .fontWeight(.bold)
                             .foregroundColor(.textPrimary)
+                        // HIG Subhead: 15pt Regular
                         Text("Semua rekam jejakmu ada di sini")
                             .font(.subheadline)
-                            .foregroundColor(.textBody)
+                            .foregroundColor(.textCaption)
                     }
                     // Summary Box
                     HistorySummaryBox(
@@ -53,14 +61,18 @@ struct HistoryView: View {
                 // MARK: - Content
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 16) {
+                        // HIG Footnote: 13pt Semibold
                         Text("2026")
-                            .font(.headline)
-                            .fontWeight(.bold)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
                             .foregroundColor(.textCaption)
+                            .tracking(0.3)
                             .padding(.bottom, -8)
                         
                         ForEach(viewModel.historySections) { section in
-                            SectionCard(section: section)
+                            SectionCard(section: section) { selectedItem in
+                                appRouter.navigate(to: .summary)
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -69,7 +81,7 @@ struct HistoryView: View {
                 // MARK: - Botttom Action
                 VStack {
                     PrimaryButton(title: "Sesi Baru", iconName: "circle") {
-                        print("Sesi Baru")
+                        appRouter.popToRoot()
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 16)
@@ -84,15 +96,16 @@ struct HistoryView: View {
 // Subcomponent for the section wrapper
 struct SectionCard: View {
     let section: HistorySection
+    var onTapItem: ((SessionHistory) -> Void)? = nil
     
     var body: some View {
         VStack(spacing: 0) {
-            // Header Section Header
+            // Header Section Header — HIG Caption 2: 11pt Semibold uppercase
             HStack {
                 Text(section.header)
-                    .font(.caption)
-                    .fontWeight(.black)
-                    .kerning(1.5)
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                    .textCase(.uppercase)
                     .foregroundColor(.textCaption)
                 Spacer()
             }
@@ -103,8 +116,14 @@ struct SectionCard: View {
             // Items Inside Section
             VStack(spacing: 0) {
                 ForEach(Array(section.items.enumerated()), id: \.element.id) { index, item in
-                    HistoryItemCard(item: item)
-                        .padding(.horizontal, 16)
+                    // Wrap the card in a Button or NavigationLink
+                    Button(action: {
+                        onTapItem?(item)
+                    }) {
+                        HistoryItemCard(item: item)
+                            .padding(.horizontal, 16)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
                     if index < section.items.count - 1 {
                         Divider()
@@ -125,4 +144,5 @@ struct SectionCard: View {
 
 #Preview {
     HistoryView()
+        .environmentObject(AppRouter())
 }

@@ -9,9 +9,33 @@ import SwiftUI
 
 @main
 struct BerzkiApp: App {
+    @StateObject private var appRouter = AppRouter()
+    
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            switch appRouter.rootScreen {
+            case .splash:
+                SplashView()
+                    .environmentObject(appRouter)
+            case .panduan:
+                PanduanView()
+                    .environmentObject(appRouter)
+            case .main:
+                NavigationStack(path: $appRouter.path) {
+                    SetelWaktuView()
+                        .navigationDestination(for: AppRoute.self) { route in
+                            switch route {
+                            case .camera(let duration):
+                                CameraView(duration: duration)
+                            case .summary:
+                                SummaryView()
+                            case .history:
+                                HistoryView()
+                            }
+                        }
+                }
+                .environmentObject(appRouter)
+            }
         }
     }
 }

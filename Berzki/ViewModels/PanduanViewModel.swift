@@ -10,11 +10,14 @@ import Combine
 
 class PanduanViewModel: ObservableObject {
     @Published var selectedTab = 0
-    @Published var dontShowAgain = false
+    @Published var isNextTapped: Bool = false
     @Published var currentPage = 0
     
+    @Published var dontShowAgain: Bool = UserDefaults.standard.bool(forKey: "skipPanduan")
+    
     func nextAction() {
-        print("Lanjut ditekan, dontShowAgain: \(dontShowAgain)")
+        UserDefaults.standard.set(dontShowAgain, forKey: "skipPanduan")
+        isNextTapped = true
     }
     
     func setTab(_ index: Int) {

@@ -14,17 +14,18 @@ struct SecondaryButton: View {
     
     var body: some View {
         Button(action: action) {
+            // HIG Headline: 17pt Semibold
             Text(title)
-                .font(isFullWidth ? .system(size: 18, weight: .bold) : .headline)
-                .fontWeight(isFullWidth ? .bold : .semibold)
-                .foregroundColor(.textPrimary)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.textBody)
                 .padding(.horizontal, isFullWidth ? 16 : 30)
-                .padding(.vertical, isFullWidth ? 16 : 14)
+                .padding(.vertical, isFullWidth ? 14 : 13)
                 .frame(maxWidth: isFullWidth ? .infinity : nil)
                 .background(Color.bgInput)
-                .cornerRadius(isFullWidth ? 16 : 12)
+                .cornerRadius(13)
                 .overlay(
-                    RoundedRectangle(cornerRadius: isFullWidth ? 16 : 12)
+                    RoundedRectangle(cornerRadius: 13)
                         .stroke(Color.borderMain, lineWidth: 1)
                 )
         }

@@ -15,7 +15,7 @@ struct ErrorAnalysisCard: View {
             // Video Frame Simulation
             ZStack {
                 Rectangle()
-                    .fill(Color(hex: "#1C1412"))
+                    .fill(Color(hex: "#0D0D15"))
             
                 Image("pinggul_rendah_mock")
                     .resizable()
@@ -29,20 +29,28 @@ struct ErrorAnalysisCard: View {
                             Circle()
                                 .fill(Color.formBad)
                                 .frame(width: 8, height: 8)
+                            // HIG Caption 2: 11pt Semibold
                             Text(error.timestamp)
-                                .font(.system(size: 11, weight: .bold))
-                                .foregroundColor(.white)
+                                .font(.caption2)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white.opacity(0.75))
                         }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.black.opacity(0.75))
+                        .cornerRadius(7)
                         
                         Spacer()
                         
+                        // HIG Caption 2: 11pt Semibold
                         Text("\(error.title) Rendah")
-                            .font(.system(size: 10, weight: .bold))
+                            .font(.caption2)
+                            .fontWeight(.semibold)
                             .foregroundColor(.formBad)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
-                            .background(Color.formBad.opacity(0.2))
-                            .cornerRadius(6)
+                            .background(Color.formBad.opacity(0.18))
+                            .cornerRadius(7)
                     }
                     Spacer()
                 }
@@ -50,42 +58,43 @@ struct ErrorAnalysisCard: View {
             }
             .frame(height: 180)
             .cornerRadius(12)
-            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.borderMain, lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.formBadBorder, lineWidth: 1))
             
-            // Description Text
+            // Description Text — HIG Footnote: 13pt Regular
             if let attributedString = try? AttributedString(markdown: error.descriptionHTML) {
                 Text(attributedString)
-                    .font(.subheadline)
+                    .font(.footnote)
                     .foregroundColor(.textBody)
-                    .lineSpacing(4)
+                    .lineSpacing(5)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 Text(error.descriptionHTML)
-                    .font(.subheadline)
+                    .font(.footnote)
                     .foregroundColor(.textBody)
-                    .lineSpacing(4)
+                    .lineSpacing(5)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            // Tips Box
-            HStack(alignment: .top, spacing: 10) {
+            // Tips Box — HIG Caption 1: 12pt Regular
+            HStack(alignment: .top, spacing: 7) {
                 Image(systemName: "exclamationmark.circle")
                     .foregroundColor(.brand)
-                    .font(.system(size: 16))
-                    .padding(.top, 2)
+                    .font(.system(size: 26))
+                    .padding(.top, 1)
                 
                 Text(error.tip)
                     .font(.caption)
-                    .foregroundColor(.brandDark)
+                    .foregroundColor(.textBody)
                     .fixedSize(horizontal: false, vertical: true)
+                    .lineSpacing(4)
                 Spacer()
             }
-            .padding(12)
+            .padding(10)
             .background(Color.brandBg)
-            .cornerRadius(12)
-            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.brandBorder, lineWidth: 1))
+            .cornerRadius(10)
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.brandBorder, lineWidth: 1))
         }
     }
 }

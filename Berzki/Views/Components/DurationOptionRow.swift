@@ -17,36 +17,30 @@ struct DurationOptionRow: View {
             HStack(spacing: 16) {
                 // Icon box
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(isSelected ? Color.brand.opacity(0.15) : Color.textBody.opacity(0.08))
+                    RoundedRectangle(cornerRadius: 9)
+                        .fill(isSelected ? Color.brandBg : Color.bgInput)
                     Image(systemName: opt.iconName)
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(isSelected ? .brand : .textBody.opacity(0.6))
                 }
-                .frame(width: 44, height: 44)
+                .frame(width: 36, height: 36)
                 
                 // Titles
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 8) {
+                        // HIG Subhead: 15pt Semibold (dur-main)
                         Text(opt.title)
-                            .font(.headline)
-                            .foregroundColor(.textPrimary)
-                        
-                        if let badge = opt.badge {
-                            Text(badge)
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundColor(.brand)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(Color.brand.opacity(0.15))
-                                .cornerRadius(6)
-                        }
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(isSelected ? .brand : .textPrimary)
                     }
                     
+                    // HIG Footnote: 13pt Regular (dur-sub)
                     Text(opt.subtitle)
-                        .font(.subheadline)
-                        .foregroundColor(.textBody)
+                        .font(.footnote)
+                        .foregroundColor(isSelected ? .brand.opacity(0.7) : .textCaption)
                         .multilineTextAlignment(.leading)
+                        .lineSpacing(2)
                 }
                 
                 Spacer()
@@ -58,15 +52,16 @@ struct DurationOptionRow: View {
                         .foregroundColor(.brand)
                 } else {
                     Circle()
-                        .stroke(Color.textBody.opacity(0.3), lineWidth: 1.5)
-                        .frame(width: 22, height: 22)
+                        .stroke(Color.borderMain, lineWidth: 1.5)
+                        .frame(width: 20, height: 20)
                 }
             }
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.vertical, 13)
             .background(isSelected ? Color.brandBg : Color.bgCard)
-            .cornerRadius(16)
+            .cornerRadius(14)
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 14)
                     .stroke(isSelected ? Color.brand : Color.borderMain, lineWidth: 1)
             )
         }
@@ -77,12 +72,12 @@ struct DurationOptionRow: View {
 #Preview {
     VStack(spacing: 12) {
         DurationOptionRow(
-            opt: SetelWaktuViewModel.OptionData(type: .fixed(30), title: "30 Detik", subtitle: "Rekomendasi untuk pemula", iconName: "clock", badge: "Populer"),
+            opt: SetelWaktuViewModel.OptionData(type: .fixed(30), title: "30 Detik", subtitle: "Rekomendasi untuk pemula", iconName: "clock"),
             isSelected: true,
             action: {}
         )
         DurationOptionRow(
-            opt: SetelWaktuViewModel.OptionData(type: .freeTime, title: "Free Time", subtitle: "Tanpa batas waktu, hentikan kapan saja", iconName: "infinity", badge: nil),
+            opt: SetelWaktuViewModel.OptionData(type: .freeTime, title: "Free Time", subtitle: "Tanpa batas waktu, hentikan kapan saja", iconName: "infinity"),
             isSelected: false,
             action: {}
         )

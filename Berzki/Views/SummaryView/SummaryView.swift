@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SummaryView: View {
     @StateObject private var viewModel = SummaryViewModel()
+    @EnvironmentObject var appRouter: AppRouter
     
     var body: some View {
         ZStack {
@@ -18,34 +19,25 @@ struct SummaryView: View {
                 // MARK: - Header
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("KERJA BAGUS!")
-                            .font(.caption)
-                            .fontWeight(.black)
+                        // HIG Caption 2: 11pt Semibold uppercase
+                        Text("KERJA BAGUS! 💪")
+                            .font(.caption2)
+                            .fontWeight(.semibold)
                             .foregroundColor(.brand)
-                            .kerning(1.2)
                         
+                        // HIG Title 1: 28pt Bold
                         Text("Sesi Selesai")
-                            .font(.system(size: 32, weight: .heavy))
+                            .font(.title)
+                            .fontWeight(.bold)
                             .foregroundColor(.textPrimary)
                         
+                        // HIG Footnote: 13pt Regular
                         Text(viewModel.dateString)
-                            .font(.subheadline)
+                            .font(.footnote)
                             .foregroundColor(.textCaption)
                     }
                     
                     Spacer()
-                    
-                    // Small "Selesai" Badge top right
-                    Button(action: viewModel.finishSession) {
-                        Text("Selesai")
-                            .font(.system(size: 13, weight: .bold))
-                            .foregroundColor(.brand)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(Color.brandBg)
-                            .cornerRadius(20)
-                            .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.brandBorder, lineWidth: 1))
-                    }
                 }
                 .padding(.horizontal)
                 .padding(.top, 16)
@@ -60,10 +52,10 @@ struct SummaryView: View {
                         // Metrics Card
                         VStack(spacing: 0) {
                             HStack {
+                                // HIG Caption 2: 11pt Semibold uppercase
                                 Text("METRIK SESI")
-                                    .font(.caption)
-                                    .fontWeight(.black)
-                                    .kerning(1.5)
+                                    .font(.caption2)
+                                    .fontWeight(.semibold)
                                     .foregroundColor(.textCaption)
                                 Spacer()
                             }
@@ -94,22 +86,25 @@ struct SummaryView: View {
                         if !viewModel.errors.isEmpty {
                             VStack(spacing: 0) {
                                 HStack {
+                                    // HIG Caption 2: 11pt Semibold uppercase
                                     Text("ANALISIS ERROR")
-                                        .font(.caption)
-                                        .fontWeight(.black)
-                                        .kerning(1.5)
+                                        .font(.caption2)
+                                        .fontWeight(.semibold)
                                         .foregroundColor(.textCaption)
                                     
                                     Spacer()
                                     
                                     HStack(spacing: 12) {
+                                        // HIG Caption 2: 11pt Semibold
                                         Text("\(viewModel.currentErrorIndex + 1) / \(viewModel.errors.count)")
-                                            .font(.caption)
-                                            .fontWeight(.bold)
+                                            .font(.caption2)
+                                            .fontWeight(.semibold)
                                             .foregroundColor(.textCaption)
                                         
+                                        // HIG Caption 2: 11pt Semibold
                                         Text("\(viewModel.errors[viewModel.currentErrorIndex].timestamp) - \(viewModel.errors[viewModel.currentErrorIndex].title)")
-                                            .font(.system(size: 11, weight: .bold))
+                                            .font(.caption2)
+                                            .fontWeight(.semibold)
                                             .foregroundColor(.formBad)
                                             .padding(.horizontal, 8)
                                             .padding(.vertical, 4)
@@ -160,10 +155,13 @@ struct SummaryView: View {
                 HStack(spacing: 12) {
                     SecondaryButton(title: "Coba Lagi") {
                         viewModel.retrySession()
+                        forceLandscape()
+                        appRouter.pop()
                     }
                     
                     PrimaryButton(title: "Selesai") {
                         viewModel.finishSession()
+                        appRouter.popToRoot()
                     }
                 }
                 .padding(.horizontal)
@@ -174,8 +172,18 @@ struct SummaryView: View {
         }
         .navigationBarHidden(true)
     }
+    
+    private func forceLandscape() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        if #available(iOS 16.0, *) {
+            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight))
+        } else {
+            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        }
+    }
 }
 
 #Preview {
     SummaryView()
+        .environmentObject(AppRouter())
 }
