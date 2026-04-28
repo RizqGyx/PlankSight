@@ -47,8 +47,6 @@ Alih-alih hanya menyediakan timer kosong (stopwatch reguler), PlankSight memanfa
 
 ## 📱 Tangkapan Layar
 
-*(Ganti URL gambar di bawah dengan screenshot asli setelah aplikasi di-build)*
-
 | Panduan & Onboarding | Setel Waktu (Setup) | Kamera Layar & Feedback | Analitik Akhir |
 | :---: | :---: | :---: | :---: |
 | <img src="https://via.placeholder.com/200x420.png?text=Panduan+View" width="200" /> | <img src="https://via.placeholder.com/200x420.png?text=Setel+Waktu" width="200" /> | <img src="https://via.placeholder.com/200x420.png?text=Camera+Tracking" width="200" /> | <img src="https://via.placeholder.com/200x420.png?text=Summary/History" width="200" /> |
@@ -94,18 +92,6 @@ Untuk mendapatkan salinan repositori dan menjalankannya sangatlah mudah.
 4. Hubungkan perangkat Anda via USB atau WiFi dan pilih kapabilitas *signing* (App ID pengguna) di menu Target.
 5. Tekan tombol  **Play** (atau `Cmd + R`) untuk melakukan proses *Build and Run*.
 6. Jangan lupa pastikan opsi untuk mengakses kamera di setujui (*Privacy - Camera Usage Description*).
-
----
-
-## 🤝 Kontribusi
-
-Kami sangat terbuka untuk kontribusi Anda! Jika Anda memiliki ide meningkatkan akurasi *machine-model*, menambahkan fitur riwayat lanjut, atau sekadar memperbaiki *bug*.
-
-1. Dapatkan *Fork* proyek ini
-2. Buat branch fitur Anda (`git checkout -b feature/FiturBrilliant`)
-3. Commit penambahan kode (`git commit -m 'Membuat fitur Brilliant 2.0'`)
-4. Push ke branch referensi (`git push origin feature/FiturBrilliant`)
-5. Kirimkan satu **Pull Request** ke Repositori ini
 
 ---
 
