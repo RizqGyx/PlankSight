@@ -311,6 +311,23 @@ struct SessionResult: Hashable {
     }
 }
 
+// MARK: - Achievement Models
+
+struct AchievementBadge: Identifiable {
+    let id: String
+    let icon: String
+    let title: String
+    let color: Color
+    let isObtained: Bool
+}
+
+struct BadgeGroup: Identifiable {
+    let id: String
+    let label: String
+    let badges: [AchievementBadge]
+    var obtainedCount: Int { badges.filter { $0.isObtained }.count }
+}
+
 // MARK: - Router Models
 enum RootScreen {
     case splash

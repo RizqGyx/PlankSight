@@ -3,7 +3,7 @@ import CoreGraphics
 
 final class PlankMistakeDetector {
     struct Configuration {
-        var activationDuration: TimeInterval = 1.5
+        var activationDuration: TimeInterval = 2.0
         var clearDuration: TimeInterval = 0.45
     }
 

@@ -6,7 +6,7 @@ final class PoseDetectionService {
     private let frameBuilder: PoseFrameBuilder
     private let preferredOrientation: CGImagePropertyOrientation = .up
 
-    init(minimumConfidence: VNConfidence = 0.4) {
+    init(minimumConfidence: VNConfidence = 0.3) {
         self.frameBuilder = PoseFrameBuilder(minimumConfidence: minimumConfidence)
     }
 

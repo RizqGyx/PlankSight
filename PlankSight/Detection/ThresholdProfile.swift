@@ -13,14 +13,14 @@ struct PlankThresholdProfile {
     let minimumMistakeScore: CGFloat
 
     static let defaultProfile = PlankThresholdProfile(
-        minimumAverageConfidence: 0.36,
-        hipLowTolerance: 0.050, hipHighTolerance: 0.050,
+        minimumAverageConfidence: 0.28,
+        hipLowTolerance: 0.075, hipHighTolerance: 0.075,
         invertHipDirection: false,
-        kneeMinimumAngle: 167,
-        headDropThreshold: 0.060,
+        kneeMinimumAngle: 158,
+        headDropThreshold: 0.040,
         headDropUsesGreaterThan: false,
-        elbowPreferredRange: 74...104,
-        minimumMistakeScore: 0.008
+        elbowPreferredRange: 62...116,
+        minimumMistakeScore: 0.012
     )
 
     static func forCalibrationCase(_ calibrationCase: PlankCalibrationCase?) -> PlankThresholdProfile {
@@ -29,23 +29,23 @@ struct PlankThresholdProfile {
         case .landscapeTiltLeftPlankLeft, .landscapeTiltRightPlankRight:
             return PlankThresholdProfile(
                 minimumAverageConfidence: defaultProfile.minimumAverageConfidence,
-                hipLowTolerance: 0.034, hipHighTolerance: 0.034,
+                hipLowTolerance: 0.052, hipHighTolerance: 0.052,
                 invertHipDirection: true,
-                kneeMinimumAngle: 170,
-                headDropThreshold: 0.165,
+                kneeMinimumAngle: 162,
+                headDropThreshold: 0.180,
                 headDropUsesGreaterThan: true,
-                elbowPreferredRange: 74...96,
+                elbowPreferredRange: 62...108,
                 minimumMistakeScore: defaultProfile.minimumMistakeScore
             )
         case .portraitPlankLeft, .portraitPlankRight:
             return PlankThresholdProfile(
                 minimumAverageConfidence: defaultProfile.minimumAverageConfidence - 0.02,
-                hipLowTolerance: 0.032, hipHighTolerance: 0.032,
+                hipLowTolerance: 0.050, hipHighTolerance: 0.050,
                 invertHipDirection: false,
-                kneeMinimumAngle: 170,
-                headDropThreshold: 0.180,
+                kneeMinimumAngle: 162,
+                headDropThreshold: 0.200,
                 headDropUsesGreaterThan: true,
-                elbowPreferredRange: 52...96,
+                elbowPreferredRange: 45...108,
                 minimumMistakeScore: defaultProfile.minimumMistakeScore
             )
         }

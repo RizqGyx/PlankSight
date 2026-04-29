@@ -76,6 +76,10 @@ final class CameraSessionManager: NSObject {
             }
 
             self.session.commitConfiguration()
+
+            // Configure exposure AFTER commit — safe to lock device here
+            self.configureExposureForBacklight(device: newInput.device)
+
             let callback = self.onCameraPositionChanged
             DispatchQueue.main.async { callback?(nextPosition) }
         }
@@ -141,6 +145,13 @@ final class CameraSessionManager: NSObject {
 
             self.session.commitConfiguration()
             self.isConfigured = true
+
+            // Configure exposure AFTER commit — lockForConfiguration must not run
+            // inside a beginConfiguration/commitConfiguration block.
+            if let device = self.videoInput?.device {
+                self.configureExposureForBacklight(device: device)
+            }
+
             completion(true)
 
             let callback = self.onCameraPositionChanged
@@ -154,6 +165,30 @@ final class CameraSessionManager: NSObject {
             let input = try? AVCaptureDeviceInput(device: camera)
         else { return nil }
         return input
+    }
+
+    // Optimizes camera for backlighting scenes. Must be called OUTSIDE beginConfiguration/commitConfiguration
+    // to avoid internal AVFoundation deadlock from concurrent lockForConfiguration + beginConfiguration.
+    private func configureExposureForBacklight(device: AVCaptureDevice) {
+        do {
+            try device.lockForConfiguration()
+            defer { device.unlockForConfiguration() }
+
+            if device.isExposurePointOfInterestSupported {
+                device.exposurePointOfInterest = CGPoint(x: 0.5, y: 0.5)
+            }
+            if device.isFocusPointOfInterestSupported {
+                device.focusPointOfInterest = CGPoint(x: 0.5, y: 0.5)
+            }
+            if device.isExposureModeSupported(.continuousAutoExposure) {
+                device.exposureMode = .continuousAutoExposure
+            }
+            if device.isFocusModeSupported(.continuousAutoFocus) {
+                device.focusMode = .continuousAutoFocus
+            }
+        } catch {
+            // Camera still works with default settings if configuration fails
+        }
     }
 
     private func applyMirroring(connection: AVCaptureConnection, isMirrored: Bool) {

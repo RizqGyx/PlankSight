@@ -4,18 +4,18 @@ import CoreGraphics
 struct PoseFrameValidator {
     private struct StartGateConfiguration {
         let confidenceSlack: Float = 0.03
-        let portraitHipToleranceExtra: CGFloat = 0.040
-        let landscapeHipToleranceExtra: CGFloat = 0.170
-        let fallbackHipToleranceExtra: CGFloat = 0.080
-        let hardKneeAngleSlack: CGFloat = 18
-        let maxBodySlopeDegrees: CGFloat = 24
-        let minVerticalBodySlopeDegrees: CGFloat = 66
+        let portraitHipToleranceExtra: CGFloat = 0.060
+        let landscapeHipToleranceExtra: CGFloat = 0.200
+        let fallbackHipToleranceExtra: CGFloat = 0.110
+        let hardKneeAngleSlack: CGFloat = 25
+        let maxBodySlopeDegrees: CGFloat = 30
+        let minVerticalBodySlopeDegrees: CGFloat = 62
         let elbowLowerBound: CGFloat = 42
         let elbowUpperBound: CGFloat = 155
-        let elbowRangePadding: CGFloat = 30
+        let elbowRangePadding: CGFloat = 40
     }
 
-    var minimumJointConfidence: Float = 0.35
+    var minimumJointConfidence: Float = 0.27
     private let metricCalculator = PlankMetricCalculator(minimumReliableConfidence: 0.28)
     private let startGateConfiguration = StartGateConfiguration()
 
