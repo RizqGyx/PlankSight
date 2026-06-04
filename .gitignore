@@ -77,3 +77,8 @@ build/
 # ===========================
 .vscode/
 .idea/
+
+
+## User settings
+xcuserdata/
+*.xcodeproj/xcuserdata/
