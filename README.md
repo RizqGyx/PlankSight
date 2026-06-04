@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="PlankSight/Assets.xcassets/AppIcon.appiconset/Desain_tanpa_judul-4-2-removebg.png" alt="PlankSight Logo" width="100" height="100">
+  <img src="PlankSight/Assets.xcassets/AppIcon.appiconset/PlankSight-2.png" alt="PlankSight Logo" width="100" height="100">
 
   <h1>PlankSight</h1>
 
